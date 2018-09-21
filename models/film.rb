@@ -2,27 +2,28 @@ require_relative('../db/sql_runner')
 
 class Film
 
-  attr_accessor :title, :price
+  attr_accessor :title, :price, :age_limit
   attr_reader :id
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
     @title = options['title']
     @price = options['price'].to_i
+    @age_limit = options['age_limit'].to_i
   end
 
   def save()
-    sql = "INSERT INTO films (title, price)
-    VALUES ($1, $2) RETURNING id"
-    values = [@title, @price]
+    sql = "INSERT INTO films (title, price, age_limit)
+    VALUES ($1, $2, $3) RETURNING id"
+    values = [@title, @price, @age_limit]
     film = SqlRunner.run(sql, values).first
     @id = film['id'].to_i
   end
 
   def update()
-    sql = "UPDATE from films SET (title, price) = ($1, $2)
-    WHERE id = $3"
-    values = [@title, @price, @id]
+    sql = "UPDATE from films SET (title, price) = ($1, $2, $3)
+    WHERE id = $4"
+    values = [@title, @price, @age_limit, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -40,8 +41,16 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def check_customer_age(customer)
+    if customer.age >= @age_limit
+      return true
+    else
+      return false
+    end
+  end
+
   def sell_a_ticket(customer)
-    if customer.funds >= @price
+    if (customer.funds >= @price && check_customer_age(customer))
       customer.remove_money(@price)
       Ticket.new({'customer_id' => customer.id, 'film_id' => @id}).save()
     end

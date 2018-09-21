@@ -6,13 +6,15 @@ CREATE TABLE customers(
   id SERIAL4 PRIMARY KEY,
   first_name VARCHAR(255),
   last_name VARCHAR(255),
-  funds INT4
+  funds INT4,
+  age INT4
 );
 
 CREATE TABLE films(
   id SERIAL4 PRIMARY KEY,
   title VARCHAR(255),
-  price INT4
+  price INT4,
+  age_limit INT4
 );
 
 CREATE TABLE tickets(
