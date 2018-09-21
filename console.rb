@@ -41,6 +41,10 @@ ticket4.save()
 ticket5 = Ticket.new({'customer_id' => customer5.id, 'film_id' => film5.id})
 ticket5.save()
 film1.sell_a_ticket(customer1)
+customer1.update()
+
+film1.customers.count
+customer1.tickets.count
 
 
 binding.pry
