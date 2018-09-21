@@ -40,6 +40,13 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def sell_a_ticket(customer)
+    if customer.funds >= @price
+      customer.remove_money(@price)
+      Ticket.new({'customer_id' => customer.id, 'film_id' => @id}).save()
+    end
+  end
+
   def self.all()
     sql = "SELECT * FROM films"
     film_data = SqlRunner.run(sql)
@@ -50,5 +57,4 @@ class Film
     result = data.map{|film| Film.new(film)}
     return result
   end
-
 end

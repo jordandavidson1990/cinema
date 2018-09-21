@@ -40,7 +40,7 @@ ticket4 = Ticket.new({'customer_id' => customer4.id, 'film_id' => film4.id})
 ticket4.save()
 ticket5 = Ticket.new({'customer_id' => customer5.id, 'film_id' => film5.id})
 ticket5.save()
-
+film1.sell_a_ticket(customer1)
 
 
 binding.pry

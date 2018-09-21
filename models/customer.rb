@@ -51,4 +51,24 @@ class Customer
     result = data.map{|customer| Customer.new(customer)}
     return result
   end
+
+  def remove_money(money)
+    @funds -= money
+  end
+  # Buying tickets should decrease the
+  # funds of the customer by the price
+
+  # def tickets()
+  #   sql = "SELECT * FROM tickets where customer_id = $1"
+  #   values = [@id]
+  #   tickets_data = SqlRunner.run(sql, values)
+  #   return tickets_data.map {|tickets| Ticket.new(tickets)}
+  # end
+  #
+  # def remaining_funds
+  #   tickets_array = self.buy_tickets()
+  #   ticket_cost = tickets_array {|tickets| tickets.price}
+  #   return @funds - ticket_cost
+  # end
+
 end
