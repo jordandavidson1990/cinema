@@ -44,10 +44,6 @@ attr_accessor :customer_id, :film_id
     return Film.new(film)
   end
 
-  def how_many_customers_going_to_see_film
-    return
-  end
-
   def self.delete_all()
     sql = "DELETE FROM tickets"
     SqlRunner.run(sql)
